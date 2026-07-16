@@ -1,8 +1,8 @@
 export const SOCIAL_LINKS = {
-  github: "https://github.com/pankajkumar",
-  linkedin: "https://linkedin.com/in/pankajkumar",
-  twitter: "https://twitter.com/pankajkumar",
-  email: "pankaj@example.com",
+  github: "https://github.com/Pankajkumar25",
+  linkedin: "https://www.linkedin.com/in/pankajkumar2525/",
+  twitter: "https://www.facebook.com/Itpankaj5/",
+  email: "pankajofficial252@gmail.com",
   leetcode: "https://leetcode.com/pankajkumar",
   dev: "https://dev.to/pankajkumar",
 };

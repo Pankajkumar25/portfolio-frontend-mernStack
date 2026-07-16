@@ -137,8 +137,8 @@ export default function Contact() {
               <h3 className="text-xl font-bold mb-4">Contact Information</h3>
               {[
                 { icon: HiMail, label: "Email", value: SOCIAL_LINKS.email },
-                { icon: HiPhone, label: "Phone", value: "+91 9876543210" },
-                { icon: FaMapMarkerAlt, label: "Location", value: "India" },
+                { icon: HiPhone, label: "Phone", value: "+91 9889109941" },
+                { icon: FaMapMarkerAlt, label: "Location", value: "Chandigarh , India" },
               ].map((item) => (
                 <div key={item.label} className="flex items-center gap-4">
                   <div className="w-12 h-12 glass rounded-xl flex items-center justify-center text-primary">
@@ -158,7 +158,7 @@ export default function Contact() {
                 {[
                   { icon: FaGithub, href: SOCIAL_LINKS.github },
                   { icon: FaLinkedin, href: SOCIAL_LINKS.linkedin },
-                  { icon: FaTwitter, href: SOCIAL_LINKS.twitter },
+                  // { icon: FaTwitter, href: SOCIAL_LINKS.twitter },
                   { icon: FaEnvelope, href: `mailto:${SOCIAL_LINKS.email}` },
                 ].map(({ icon: Icon, href }) => (
                   <a
@@ -174,7 +174,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="glass rounded-2xl h-48 overflow-hidden">
+            {/* <div className="glass rounded-2xl h-48 overflow-hidden">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609823277!2d72.74109995705735!3d19.082197839582217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644e5c1%3A0x5c0e4b0c1e4b0c1e!2sMumbai%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2s!4v1"
                 width="100%"
@@ -184,7 +184,7 @@ export default function Contact() {
                 loading="lazy"
                 className="grayscale opacity-60 hover:opacity-100 transition-opacity"
               />
-            </div>
+            </div> */}
           </motion.div>
         </div>
       </div>

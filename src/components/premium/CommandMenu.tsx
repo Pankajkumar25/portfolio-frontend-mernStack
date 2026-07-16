@@ -10,8 +10,8 @@ const commands = [
   ...NAV_LINKS.map((link) => ({ ...link, description: `Navigate to ${link.name}` })),
   { name: "Download Resume", href: "/images/resume.pdf", description: "Download my resume" },
   { name: "Toggle Theme", href: "", description: "Switch between dark and light mode", action: "theme" },
-  { name: "Open GitHub", href: "https://github.com/pankajkumar", description: "Visit my GitHub" },
-  { name: "Open LinkedIn", href: "https://linkedin.com/in/pankajkumar", description: "Visit my LinkedIn" },
+  { name: "Open GitHub", href: "https://github.com/pankajkumar25", description: "Visit my GitHub" },
+  { name: "Open LinkedIn", href: "https://linkedin.com/in/pankajkumar2525", description: "Visit my LinkedIn" },
 ];
 
 export default function CommandMenu() {

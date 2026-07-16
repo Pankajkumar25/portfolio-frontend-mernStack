@@ -6,9 +6,9 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { HiBadgeCheck, HiCode, HiCube } from "react-icons/hi";
 
 const stats = [
-  { icon: HiCode, label: "Years Experience", value: "3+" },
+  { icon: HiCode, label: "Years Experience", value: "2+" },
   { icon: HiCube, label: "Projects Completed", value: "20+" },
-  { icon: HiBadgeCheck, label: "Technologies", value: "15+" },
+  { icon: HiBadgeCheck, label: "Technologies", value: "11+" },
 ];
 
 export default function About() {
@@ -83,7 +83,7 @@ export default function About() {
             </h3>
 
             {[
-              { year: "2024", title: "Full Stack Developer", desc: "Working on enterprise-level MERN applications" },
+              { year: "2026", title: "Full Stack Developer", desc: "Working on enterprise-level MERN applications" },
               { year: "2023", title: "MERN Stack Developer", desc: "Built multiple full-stack applications with React & Node.js" },
               { year: "2022", title: "Frontend Developer", desc: "Started career with React.js and modern CSS" },
               { year: "2021", title: "Started Coding", desc: "Began learning JavaScript and web development fundamentals" },
