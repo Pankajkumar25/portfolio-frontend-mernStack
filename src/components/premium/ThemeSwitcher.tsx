@@ -1,11 +1,29 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { HiSun, HiMoon } from "react-icons/hi";
 import { useThemeStore } from "@/store";
 
 export default function ThemeSwitcher() {
-  const { theme, toggleTheme } = useThemeStore();
+  const { theme, setTheme } = useThemeStore();
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark") {
+      setTheme(saved);
+      document.documentElement.setAttribute("data-theme", saved);
+    } else {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  };
 
   return (
     <motion.button

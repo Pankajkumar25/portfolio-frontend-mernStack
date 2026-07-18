@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useUIStore } from "@/store";
+import { useUIStore, useThemeStore } from "@/store";
 import { NAV_LINKS } from "@/lib/constants";
 import { HiSearch, HiX } from "react-icons/hi";
 
@@ -16,6 +16,7 @@ const commands = [
 
 export default function CommandMenu() {
   const { isCommandMenuOpen, setCommandMenuOpen } = useUIStore();
+  const { theme, setTheme } = useThemeStore();
   const [search, setSearch] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -44,7 +45,10 @@ export default function CommandMenu() {
   const executeCommand = (cmd: (typeof commands)[0]) => {
     setCommandMenuOpen(false);
     if ("action" in cmd && cmd.action === "theme") {
-      document.documentElement.classList.toggle("dark");
+      const next = theme === "dark" ? "light" : "dark";
+      setTheme(next);
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
       return;
     }
     if (cmd.href.startsWith("#")) {

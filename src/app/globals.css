@@ -9,6 +9,23 @@
   --accent: #00F5FF;
   --neon: #FF00FF;
   --dark: #0a0a0f;
+  --bg: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --text: #111827;
+  --text-secondary: #6b7280;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --scrollbar-track: #e5e7eb;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0f;
+  --bg-secondary: #111128;
+  --text: #ffffff;
+  --text-secondary: #9ca3af;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --scrollbar-track: #0a0a0f;
 }
 
 * {
@@ -17,9 +34,10 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--dark);
-  color: #ffffff;
+  background-color: var(--bg);
+  color: var(--text);
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::-webkit-scrollbar {
@@ -27,7 +45,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0f;
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -41,9 +59,10 @@ body {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
+  transition: background 0.3s ease, border 0.3s ease;
 }
 
 .glass-hover:hover {
@@ -96,6 +115,36 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+[data-theme="light"] .text-gray-300,
+[data-theme="light"] .text-gray-400 {
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] .bg-dark,
+[data-theme="light"] .bg-dark-100,
+[data-theme="light"] .bg-dark-200,
+[data-theme="light"] .bg-dark-300,
+[data-theme="light"] .bg-dark-400 {
+  background-color: var(--bg-secondary);
+}
+
+[data-theme="light"] .border-white\/10,
+[data-theme="light"] .border-white\/5 {
+  border-color: var(--glass-border);
+}
+
+[data-theme="light"] .text-white {
+  color: var(--text);
+}
+
+[data-theme="light"] .hover\:bg-white\/5:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .neon-text {
+  text-shadow: 0 0 10px rgba(108, 99, 255, 0.4), 0 0 20px rgba(108, 99, 255, 0.2);
 }
 
 @layer components {
