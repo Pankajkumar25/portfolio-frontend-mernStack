@@ -2,14 +2,18 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HiMenu, HiX } from "react-icons/hi";
-import { useUIStore } from "@/store";
+import { HiMenu, HiX, HiChartBar, HiHome, HiLogout } from "react-icons/hi";
+import { useUIStore, useAuthStore } from "@/store";
 import { NAV_LINKS, SITE_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const { isMobileMenuOpen, setMobileMenuOpen } = useUIStore();
+  const { isAuthenticated, logout } = useAuthStore();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -21,6 +25,11 @@ export default function Navbar() {
     setMobileMenuOpen(false);
     const el = document.querySelector(href);
     el?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleLogout = () => {
+    logout();
+    router.push("/");
   };
 
   return (
@@ -45,20 +54,46 @@ export default function Navbar() {
               <span className="text-primary">.</span>
             </motion.a>
 
-            <div className="hidden lg:flex items-center gap-1">
-              {NAV_LINKS.map((link, i) => (
-                <motion.button
-                  key={link.href}
-                  onClick={() => scrollToSection(link.href)}
-                  className="px-4 py-2 text-sm text-gray-300 hover:text-primary rounded-lg hover:bg-white/5 transition-all"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
+            {isAuthenticated ? (
+              <div className="hidden lg:flex items-center gap-2">
+                <Link
+                  href="/admin"
+                  className="flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:text-primary rounded-lg hover:bg-white/5 transition-all"
                 >
-                  {link.name}
-                </motion.button>
-              ))}
-            </div>
+                  <HiChartBar size={16} />
+                  Dashboard
+                </Link>
+                <Link
+                  href="/"
+                  className="flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:text-primary rounded-lg hover:bg-white/5 transition-all"
+                >
+                  <HiHome size={16} />
+                  View Site
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 px-4 py-2 text-sm text-red-400 hover:bg-red-400/10 rounded-lg transition-all"
+                >
+                  <HiLogout size={16} />
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="hidden lg:flex items-center gap-1">
+                {NAV_LINKS.map((link, i) => (
+                  <motion.button
+                    key={link.href}
+                    onClick={() => scrollToSection(link.href)}
+                    className="px-4 py-2 text-sm text-gray-300 hover:text-primary rounded-lg hover:bg-white/5 transition-all"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    {link.name}
+                  </motion.button>
+                ))}
+              </div>
+            )}
 
             <button
               className="lg:hidden p-2 text-white hover:text-primary transition-colors"
@@ -81,18 +116,46 @@ export default function Navbar() {
           >
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
             <div className="absolute right-0 top-0 bottom-0 w-72 glass p-6 pt-20">
-              {NAV_LINKS.map((link, i) => (
-                <motion.button
-                  key={link.href}
-                  onClick={() => scrollToSection(link.href)}
-                  className="block w-full text-left px-4 py-3 text-gray-300 hover:text-primary hover:bg-white/5 rounded-lg transition-all"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                >
-                  {link.name}
-                </motion.button>
-              ))}
+              {isAuthenticated ? (
+                <div className="space-y-2">
+                  <Link
+                    href="/admin"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-primary hover:bg-white/5 rounded-lg transition-all"
+                  >
+                    <HiChartBar size={18} />
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-primary hover:bg-white/5 rounded-lg transition-all"
+                  >
+                    <HiHome size={18} />
+                    View Site
+                  </Link>
+                  <button
+                    onClick={() => { setMobileMenuOpen(false); handleLogout(); }}
+                    className="flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-red-400/10 rounded-lg transition-all w-full text-left"
+                  >
+                    <HiLogout size={18} />
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                NAV_LINKS.map((link, i) => (
+                  <motion.button
+                    key={link.href}
+                    onClick={() => scrollToSection(link.href)}
+                    className="block w-full text-left px-4 py-3 text-gray-300 hover:text-primary hover:bg-white/5 rounded-lg transition-all"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    {link.name}
+                  </motion.button>
+                ))
+              )}
             </div>
           </motion.div>
         )}
