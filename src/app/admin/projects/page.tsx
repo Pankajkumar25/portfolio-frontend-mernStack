@@ -90,15 +90,21 @@ export default function AdminProjects() {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">Projects</h1>
-        <button onClick={openCreate} className="px-4 py-2 bg-primary rounded-xl text-sm hover:bg-primary/80 transition-colors">
-          + Add Project
-        </button>
-      </div>
+      <h1 className="text-xl md:text-3xl font-bold mb-6">Projects</h1>
 
       <div className="glass rounded-2xl p-6">
-        <DataTable columns={columns} data={projects} onEdit={openEdit} onDelete={handleDelete} loading={loading} />
+        <DataTable
+          columns={columns}
+          data={projects}
+          onEdit={openEdit}
+          onDelete={handleDelete}
+          loading={loading}
+          searchExtra={
+            <button onClick={openCreate} className="px-4 py-2 bg-primary rounded-xl text-sm hover:bg-primary/80 transition-colors whitespace-nowrap">
+              + Add Project
+            </button>
+          }
+        />
       </div>
 
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title={editing ? "Edit Project" : "Add Project"} size="lg">

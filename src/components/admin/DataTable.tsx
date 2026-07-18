@@ -17,9 +17,10 @@ interface DataTableProps {
   onEdit?: (item: any) => void;
   onDelete?: (id: string) => void;
   loading?: boolean;
+  searchExtra?: React.ReactNode;
 }
 
-export default function DataTable({ columns, data, onEdit, onDelete, loading }: DataTableProps) {
+export default function DataTable({ columns, data, onEdit, onDelete, loading, searchExtra }: DataTableProps) {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -45,15 +46,18 @@ export default function DataTable({ columns, data, onEdit, onDelete, loading }: 
 
   return (
     <div>
-      <div className="relative w-full sm:w-72 mb-4">
-        <HiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-        <input
-          type="text"
-          placeholder="Search..."
-          value={search}
-          onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
-          className="w-full pl-10 pr-4 py-2 glass rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-primary/50"
-        />
+      <div className="flex items-center gap-2 mb-4 flex-wrap">
+        <div className="relative w-full sm:w-72">
+          <HiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
+            className="w-full pl-10 pr-4 py-2 glass rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-primary/50"
+          />
+        </div>
+        {searchExtra}
       </div>
 
       <div className="overflow-x-auto">

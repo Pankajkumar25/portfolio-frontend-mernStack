@@ -56,12 +56,18 @@ export default function AdminServices() {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">Services</h1>
-        <button onClick={openCreate} className="px-4 py-2 bg-primary rounded-xl text-sm">+ Add Service</button>
-      </div>
+      <h1 className="text-xl md:text-3xl font-bold mb-6">Services</h1>
       <div className="glass rounded-2xl p-6">
-        <DataTable columns={columns} data={services} onEdit={openEdit} onDelete={handleDelete} loading={loading} />
+        <DataTable
+          columns={columns}
+          data={services}
+          onEdit={openEdit}
+          onDelete={handleDelete}
+          loading={loading}
+          searchExtra={
+            <button onClick={openCreate} className="px-4 py-2 bg-primary rounded-xl text-sm whitespace-nowrap">+ Add Service</button>
+          }
+        />
       </div>
 
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title={editing ? "Edit Service" : "Add Service"}>

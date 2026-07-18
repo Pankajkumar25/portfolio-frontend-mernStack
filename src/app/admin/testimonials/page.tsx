@@ -67,12 +67,18 @@ export default function AdminTestimonials() {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">Testimonials</h1>
-        <button onClick={openCreate} className="px-4 py-2 bg-primary rounded-xl text-sm">+ Add Testimonial</button>
-      </div>
+      <h1 className="text-xl md:text-3xl font-bold mb-6">Testimonials</h1>
       <div className="glass rounded-2xl p-6">
-        <DataTable columns={columns} data={testimonials} onEdit={openEdit} onDelete={handleDelete} loading={loading} />
+        <DataTable
+          columns={columns}
+          data={testimonials}
+          onEdit={openEdit}
+          onDelete={handleDelete}
+          loading={loading}
+          searchExtra={
+            <button onClick={openCreate} className="px-4 py-2 bg-primary rounded-xl text-sm whitespace-nowrap">+ Add Testimonial</button>
+          }
+        />
       </div>
 
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title={editing ? "Edit Testimonial" : "Add Testimonial"}>
