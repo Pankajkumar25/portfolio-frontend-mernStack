@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { blogAPI } from "@/lib/api";
 import { Blog } from "@/types";
 import DataTable from "@/components/admin/DataTable";
+import CloudinaryUpload from "@/components/admin/CloudinaryUpload";
 import Modal from "@/components/ui/Modal";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 import toast from "react-hot-toast";
@@ -16,7 +17,7 @@ export default function AdminBlogs() {
   const [editing, setEditing] = useState<Blog | null>(null);
   const [form, setForm] = useState({
     title: "", excerpt: "", content: "", tags: "",
-    published: false, coverImage: "", readTime: 5,
+    published: false, coverImages: [] as { url: string; publicId: string }[], readTime: 5,
   });
 
   const fetchData = async () => {
@@ -31,16 +32,17 @@ export default function AdminBlogs() {
 
   const openCreate = () => {
     setEditing(null);
-    setForm({ title: "", excerpt: "", content: "", tags: "", published: false, coverImage: "", readTime: 5 });
+    setForm({ title: "", excerpt: "", content: "", tags: "", published: false, coverImages: [], readTime: 5 });
     setModalOpen(true);
   };
 
   const openEdit = (blog: Blog) => {
     setEditing(blog);
+    const existing = blog.coverImage?.url ? [blog.coverImage] : [];
     setForm({
       title: blog.title, excerpt: blog.excerpt, content: blog.content,
       tags: blog.tags.join(", "), published: blog.published,
-      coverImage: blog.coverImage?.url || "", readTime: blog.readTime,
+      coverImages: existing, readTime: blog.readTime,
     });
     setModalOpen(true);
   };
@@ -50,7 +52,7 @@ export default function AdminBlogs() {
     const payload = {
       ...form,
       tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
-      coverImage: { url: form.coverImage, publicId: "" },
+      coverImage: form.coverImages[0] || { url: "", publicId: "" },
     };
     try {
       if (editing) { await blogAPI.update(editing._id, payload); toast.success("Updated!"); }
@@ -94,9 +96,12 @@ export default function AdminBlogs() {
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Cover Image URL</label>
-              <input type="url" value={form.coverImage} onChange={(e) => setForm({ ...form, coverImage: e.target.value })}
-                className="w-full px-3 py-2 glass rounded-xl text-sm text-white focus:outline-none" />
+              <label className="block text-sm text-gray-400 mb-1">Cover Image</label>
+              <CloudinaryUpload
+                images={form.coverImages}
+                onChange={(images) => setForm({ ...form, coverImages: images })}
+                maxImages={1}
+              />
             </div>
             <div>
               <label className="block text-sm text-gray-400 mb-1">Read Time (minutes)</label>
