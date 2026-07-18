@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { projectAPI } from "@/lib/api";
 import { Project } from "@/types";
 import DataTable from "@/components/admin/DataTable";
+import CloudinaryUpload from "@/components/admin/CloudinaryUpload";
 import Modal from "@/components/ui/Modal";
 import toast from "react-hot-toast";
 
@@ -17,7 +18,8 @@ export default function AdminProjects() {
   const [editing, setEditing] = useState<Project | null>(null);
   const [form, setForm] = useState({
     title: "", description: "", category: "fullstack", techStack: "",
-    githubLink: "", liveLink: "", featured: false, images: "",
+    githubLink: "", liveLink: "", featured: false,
+    images: [] as { url: string; publicId: string }[],
   });
 
   const fetchData = async () => {
@@ -32,7 +34,7 @@ export default function AdminProjects() {
 
   const openCreate = () => {
     setEditing(null);
-    setForm({ title: "", description: "", category: "fullstack", techStack: "", githubLink: "", liveLink: "", featured: false, images: "" });
+    setForm({ title: "", description: "", category: "fullstack", techStack: "", githubLink: "", liveLink: "", featured: false, images: [] });
     setModalOpen(true);
   };
 
@@ -46,7 +48,7 @@ export default function AdminProjects() {
       githubLink: project.githubLink || "",
       liveLink: project.liveLink || "",
       featured: project.featured,
-      images: project.images.map((i) => i.url).join(", "),
+      images: project.images,
     });
     setModalOpen(true);
   };
@@ -56,7 +58,6 @@ export default function AdminProjects() {
     const payload = {
       ...form,
       techStack: form.techStack.split(",").map((t) => t.trim()).filter(Boolean),
-      images: form.images.split(",").map((url) => ({ url: url.trim(), publicId: "" })).filter((i) => i.url),
     };
 
     try {
@@ -138,11 +139,10 @@ export default function AdminProjects() {
                 className="w-full px-3 py-2 glass rounded-xl text-sm text-white focus:outline-none" />
             </div>
           </div>
-          <div>
-            <label className="block text-sm text-gray-400 mb-1">Image URLs (comma separated)</label>
-            <input type="text" value={form.images} onChange={(e) => setForm({ ...form, images: e.target.value })}
-              className="w-full px-3 py-2 glass rounded-xl text-sm text-white focus:outline-none" placeholder="https://..." />
-          </div>
+          <CloudinaryUpload
+            images={form.images}
+            onChange={(images) => setForm({ ...form, images })}
+          />
           <label className="flex items-center gap-2 text-sm text-gray-300">
             <input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })}
               className="rounded border-gray-600" />
