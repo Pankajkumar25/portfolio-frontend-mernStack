@@ -45,11 +45,7 @@ export default function AdminSidebar() {
             collapsed ? "hidden lg:hidden" : "block"
           )}
         >
-          <div className="p-6 border-b border-white/10">
-            <Link href="/admin" className="text-xl font-bold neon-text">
-              Admin<span className="text-primary">.</span>
-            </Link>
-          </div>
+          
 
           <nav className="p-4 space-y-1 overflow-y-auto h-[calc(100vh-200px)]">
             {menuItems.map((item) => {
