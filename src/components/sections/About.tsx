@@ -15,7 +15,7 @@ export default function About() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="about" className="relative py-20" ref={ref}>
+    <section id="about" className="relative py-0" ref={ref}>
       <div className="section-container">
         <motion.h2
           className="section-title"

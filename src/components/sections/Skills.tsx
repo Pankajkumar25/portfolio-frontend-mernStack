@@ -72,7 +72,7 @@ export default function Skills() {
   const categories = Array.from(new Set(skills.map((s) => s.category)));
 
   return (
-    <section id="skills" className="relative py-20" ref={ref}>
+    <section id="skills" className="relative py-0" ref={ref}>
       <div className="absolute inset-0 cyber-grid-bg opacity-20" />
       <div className="section-container relative z-10">
         <motion.h2

@@ -38,7 +38,7 @@ export default function Services() {
   const displayServices = services.length ? services : defaultServices;
 
   return (
-    <section id="services" className="relative py-20" ref={ref}>
+    <section id="services" className="relative py-0" ref={ref}>
       <div className="section-container">
         <motion.h2
           className="section-title"

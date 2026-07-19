@@ -31,7 +31,7 @@ export default function BlogSection() {
   if (!loading && blogs.length === 0) return null;
 
   return (
-    <section id="blog" className="relative py-20" ref={ref}>
+    <section id="blog" className="relative py-0" ref={ref}>
       <div className="section-container">
         <motion.h2
           className="section-title"

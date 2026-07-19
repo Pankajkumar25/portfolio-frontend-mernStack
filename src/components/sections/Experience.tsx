@@ -29,7 +29,7 @@ export default function Experience() {
   }, [activeTab]);
 
   return (
-    <section id="experience" className="relative py-20" ref={ref}>
+    <section id="experience" className="relative py-0" ref={ref}>
       <div className="section-container">
         <motion.h2
           className="section-title"

@@ -29,7 +29,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section id="testimonials" className="relative py-20" ref={ref}>
+    <section id="testimonials" className="relative py-0" ref={ref}>
       <div className="section-container">
         <motion.h2
           className="section-title"
